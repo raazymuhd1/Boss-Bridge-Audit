@@ -2,7 +2,7 @@
 <img src="./images/boss-bridge.png" width="400" alt="puppy-raffle">
 <br/>
 
-# Boss Bridge
+# Boss Bridge (stop at 19.19.52)
 
 This project presents a simple bridge mechanism to move our ERC20 token from L1 to an L2 we're building.
 The L2 part of the bridge is still under construction, so we don't include it here.

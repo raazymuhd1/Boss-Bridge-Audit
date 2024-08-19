@@ -22,6 +22,8 @@ contract TokenFactory is Ownable {
      */
     function deployToken(string memory symbol, bytes memory contractBytecode) public onlyOwner returns (address addr) {
         assembly {
+            // @audit-high this won't work on ZKSYNC
+            // see: https://docs.zksync.io/build/developer-reference/ethereum-differences/evm-instructions#create-create2
             addr := create(0, add(contractBytecode, 0x20), mload(contractBytecode))
         }
         s_tokenToAddress[symbol] = addr;

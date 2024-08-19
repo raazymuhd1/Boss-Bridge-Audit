@@ -17,6 +17,7 @@ contract L1Vault is Ownable {
     }
 
     function approveTo(address target, uint256 amount) external onlyOwner {
+        // @audit-info this should check the return value of approve (but the approve function always returns true on OZ lib for ERC20)
         token.approve(target, amount);
     }
 }
