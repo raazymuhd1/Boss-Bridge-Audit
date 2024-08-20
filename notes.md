@@ -13,3 +13,12 @@
  - Verifying message:
    - Get the signed message, break into `v, r, s`
    - get the data itself, and use it as input parameters for `ecrecover`
+
+
+## EVM Diff
+ see the differences of each EVM chains, something like opcode differences and etc
+ - resources [evm-diff](https://www.evmdiff.com/)
+
+
+
+

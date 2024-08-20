@@ -11,11 +11,32 @@ remappings = [
 ]
 
 [fmt]
+# Adds spaces inside brackets (e.g., { x } instead of {x})
 bracket_spacing = true
+
+# Uses 'uint256' instead of 'uint' for integer types
 int_types = "long"
+
+# Sets the maximum line length to 120 characters
 line_length = 120
+
+# Formats function headers to span multiple lines
 multiline_func_header = "all"
+
+# Adds underscores to large numbers for readability (e.g., 1_000_000)
 number_underscore = "thousands"
+
+# Uses double quotes for strings instead of single quotes
 quote_style = "double"
+
+# Sets the number of spaces for each indentation level
 tab_width = 4
+
+# Wraps comments to fit within the line length
 wrap_comments = true
+
+
+
+
+
+
